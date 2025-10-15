@@ -20,7 +20,7 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
   },
 
   // You can expose other APTs you need here.
-  saveUserInfo: (data) => ipcRenderer.invoke('save-user-info', data)
+  saveUserInfo: (data: { name: string; age: number; id_card: string }) => ipcRenderer.invoke('save-user-info', data)
 })
 
 // --------- Preload scripts loading ---------

@@ -3,18 +3,11 @@ import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import os from 'node:os'
-// 导入数据库工具
-import { initDatabase, saveUserInfo } from './database';
+import { saveUserInfo } from './dataService'; // 导入JSON数据服务
+
 
 const require = createRequire(import.meta.url)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-
-// 在文件开头初始化数据库
-initDatabase().then(() => {
-  console.log('Database initialized successfully');
-}).catch(err => {
-  console.error('Database initialization failed:', err);
-});
 
 // The built directory structure
 //
@@ -128,19 +121,7 @@ ipcMain.handle('open-win', (_, arg) => {
   }
 })
 
+// 添加IPC处理
 ipcMain.handle('save-user-info', async (_, data) => {
-  try {
-    await saveUserInfo(data);
-    return { success: true, message: '保存成功' };
-  } catch (err) {
-    console.error('保存失败:', err);
-    // 识别唯一约束错误
-    if (err instanceof Error && err.message.includes('UNIQUE constraint failed')) {
-      return { success: false, message: '该身份证号已存在，请更换' };
-    }
-    return { 
-      success: false, 
-      message: err instanceof Error ? err.message : '保存失败' 
-    };
-  }
-})
+  return await saveUserInfo(data);
+});

@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import BookManagement from './components/book/BookManagement.vue'; // 引入书籍管理组件
 </script>
 
 <template>
-  <BookManagement />
+    <router-view />
 </template>
 
 <style>

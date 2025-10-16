@@ -3,9 +3,9 @@ import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import os from 'node:os'
-import { saveUserInfo } from './dataService'; // 导入JSON数据服务
 import { bookService } from './bookService';
-
+import { chapterService } from './chapterService';
+import { Volume, Chapter } from '@share/models/Chapter';
 
 const require = createRequire(import.meta.url)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -122,15 +122,31 @@ ipcMain.handle('open-win', (_, arg) => {
   }
 })
 
-// 添加IPC处理
-ipcMain.handle('save-user-info', async (_, data) => {
-  return await saveUserInfo(data);
-});
-
 // 书籍管理相关IPC
 ipcMain.handle('get-all-books', async () => {
   return await bookService.getAllBooks();
 });
 ipcMain.handle('add-book', async (_, bookData) => {
   return await bookService.addBook(bookData);
+});
+
+// 章节管理相关IPC
+ipcMain.handle('get-volumes-by-book-id', async (_, bookId: string) => {
+  return await chapterService.getVolumesByBookId(bookId);
+});
+
+ipcMain.handle('get-chapters-by-volume-id', async (_, volumeId?: string) => {
+  return await chapterService.getChaptersByVolumeId(volumeId);
+});
+
+ipcMain.handle('create-volume', async (_, volumeData: Omit<Volume, 'id' | 'order'>) => {
+  return await chapterService.createVolume(volumeData);
+});
+
+ipcMain.handle('create-chapter', async (_, chapterData: Omit<Chapter, 'id' | 'createTime' | 'lastEditTime' | 'wordCount' | 'order'>) => {
+  return await chapterService.createChapter(chapterData);
+});
+
+ipcMain.handle('update-chapter-content', async (_, chapterId: string, content: string) => {
+  return await chapterService.updateChapterContent(chapterId, content);
 });

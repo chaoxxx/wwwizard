@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-
+import { useRouter } from 'vue-router'; // 添加导入
 import type { Book } from '@share/models/Book';
 import { ref, onMounted } from 'vue';
 import BookCard from './BookCard.vue';
@@ -31,6 +31,15 @@ import AddBookDialog from './AddBookDialog.vue';
 const books = ref<Book[]>([]);
 const showAddBookDialog = ref(false);
 
+// 在setup中获取路由实例
+const router = useRouter();
+
+// 修改处理书籍点击的方法
+const handleBookClick = (book: Book) => {
+  // 跳转到写作页面
+  router.push({ name: 'Writer', params: { bookId: book.id } });
+};
+
 // 加载所有书籍
 const loadBooks = async () => {
   try {
@@ -39,12 +48,6 @@ const loadBooks = async () => {
   } catch (error) {
     console.error('加载书籍失败:', error);
   }
-};
-
-// 处理书籍点击
-const handleBookClick = (book: Book) => {
-  // 这里可以实现打开书籍的逻辑
-  console.log('打开书籍:', book);
 };
 
 // 处理新增书籍

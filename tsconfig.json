@@ -11,9 +11,13 @@
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
-    "noEmit": true
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@share/*": ["share/*"] // 保持与主配置一致的路径别名
+    }    
   },
-  "include": ["src"],
+  "include": ["src", "share/**/*"],
   "references": [
     { "path": "./tsconfig.node.json" }
   ]

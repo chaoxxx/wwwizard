@@ -6,7 +6,18 @@ declare module '*.vue' {
   export default component
 }
 
-interface Window {
-  // expose in the `electron/preload/index.ts`
-  ipcRenderer: import('electron').IpcRenderer
+import type { Book } from '@shared/models/Book';
+
+declare global {
+  interface Window {
+    // expose in the `electron/preload/index.ts`
+    ipcRenderer: import('electron').IpcRenderer & {    
+      saveUserInfo: (data: { name: string; age: number; id_card: string }) => Promise<void>;
+      getAllBooks: () => Promise<Book[]>;
+      addBook: (bookData:Book) => Promise<Book>;
+    }
+  }
 }
+
+
+export {}

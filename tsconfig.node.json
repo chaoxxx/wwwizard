@@ -4,7 +4,11 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@share/*": ["share/*"] // 保持与主配置一致的路径别名
+    }
   },
-  "include": ["vite.config.ts", "package.json", "electron"]
+  "include": ["vite.config.ts", "package.json", "electron","share/**/*"]
 }

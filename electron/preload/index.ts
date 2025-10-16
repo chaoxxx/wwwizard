@@ -1,5 +1,5 @@
 import { ipcRenderer, contextBridge } from 'electron'
-
+import { Book } from '@share/models/Book'
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld('ipcRenderer', {
   on(...args: Parameters<typeof ipcRenderer.on>) {
@@ -20,7 +20,10 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
   },
 
   // You can expose other APTs you need here.
-  saveUserInfo: (data: { name: string; age: number; id_card: string }) => ipcRenderer.invoke('save-user-info', data)
+  saveUserInfo: (data: { name: string; age: number; id_card: string }) => ipcRenderer.invoke('save-user-info', data),
+    // 书籍管理相关方法
+  getAllBooks: () => ipcRenderer.invoke('get-all-books'),
+  addBook: (bookData:Book) => ipcRenderer.invoke('add-book', bookData)
 })
 
 // --------- Preload scripts loading ---------

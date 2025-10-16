@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import UserForm from './components/UserForm.vue'; // 引入新组件
+// import HelloWorld from './components/HelloWorld.vue'
+// import UserForm from './components/UserForm.vue'; // 引入新组件
+import BookManagement from './components/book/BookManagement.vue'; // 引入书籍管理组件
 
 </script>
 
@@ -18,7 +19,7 @@ import UserForm from './components/UserForm.vue'; // 引入新组件
   </div>
   <!-- <HelloWorld msg="Electron + Vite + Vue" /> -->
   <!-- 替换原有HelloWorld组件为UserForm -->
-  <UserForm />
+  <BookManagement />
   <div class="flex-center">
     Place static files into the <code>/public</code> folder
     <img style="width: 2.4em; margin-left: .4em;" src="/logo.svg" alt="Logo">

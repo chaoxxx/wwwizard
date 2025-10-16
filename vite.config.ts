@@ -15,7 +15,7 @@ export default defineConfig(({ command }) => {
   // 获取项目依赖列表并添加需要排除的模块
   const externalDeps = Object.keys('dependencies' in pkg ? pkg.dependencies : {})
   // 添加sqlite相关模块到外部依赖
-  const electronExternal = [...externalDeps, 'sqlite', 'sqlite3', 'better-sqlite3']
+  const electronExternal = [...externalDeps]
 
   return {
     plugins: [
@@ -41,7 +41,6 @@ export default defineConfig(({ command }) => {
                 // we can use `external` to exclude them to ensure they work correctly.
                 // Others need to put them in `dependencies` to ensure they are collected into `app.asar` after the app is built.
                 // Of course, this is not absolute, just this way is relatively simple. :)
-                // 使用包含sqlite模块的外部依赖列表
                 external: electronExternal,
               },
             },

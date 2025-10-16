@@ -1,79 +1,46 @@
-# electron-vite-vue
+## 文本编辑器
 
-🥳 Really simple `Electron` + `Vue` + `Vite` boilerplate.
+Tiptap + 自定义扩展
 
-<!-- [![awesome-vite](https://awesome.re/mentioned-badge.svg)](https://github.com/vitejs/awesome-vite) -->
-<!-- [![Netlify Status](https://api.netlify.com/api/v1/badges/ae3863e3-1aec-4eb1-8f9f-1890af56929d/deploy-status)](https://app.netlify.com/sites/electron-vite/deploys) -->
-<!-- [![GitHub license](https://img.shields.io/github/license/caoxiemeihao/electron-vite-vue)](https://github.com/electron-vite/electron-vite-vue/blob/main/LICENSE) -->
-<!-- [![GitHub stars](https://img.shields.io/github/stars/caoxiemeihao/electron-vite-vue?color=fa6470)](https://github.com/electron-vite/electron-vite-vue) -->
-<!-- [![GitHub forks](https://img.shields.io/github/forks/caoxiemeihao/electron-vite-vue)](https://github.com/electron-vite/electron-vite-vue) -->
-[![GitHub Build](https://github.com/electron-vite/electron-vite-vue/actions/workflows/build.yml/badge.svg)](https://github.com/electron-vite/electron-vite-vue/actions/workflows/build.yml)
-[![GitHub Discord](https://img.shields.io/badge/chat-discord-blue?logo=discord)](https://discord.gg/sRqjYpEAUK)
+## 开发环境
 
-## Features
+node `v22.14.0`
+开发工具`visual studio code`
 
-📦 Out of the box  
-🎯 Based on the official [template-vue-ts](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-vue-ts), less invasive  
-🌱 Extensible, really simple directory structure  
-💪 Support using Node.js API in Electron-Renderer  
-🔩 Support C/C++ native addons  
-🖥 It's easy to implement multiple windows  
+```
+git clone https://github.com/chaoxxx/wwwizard.git
+cnpm install
+```
 
-## Quick Setup
+## 开发环境启动
 
-```sh
-# clone the project
-git clone https://github.com/electron-vite/electron-vite-vue.git
-
-# enter the project directory
-cd electron-vite-vue
-
-# install dependency
-npm install
-
-# develop
+```
 npm run dev
 ```
 
-## Debug
+## 打包
 
-![electron-vite-react-debug.gif](https://github.com/electron-vite/electron-vite-react/blob/main/electron-vite-react-debug.gif?raw=true)
-
-## Directory
-
-```diff
-+ ├─┬ electron
-+ │ ├─┬ main
-+ │ │ └── index.ts    entry of Electron-Main
-+ │ └─┬ preload
-+ │   └── index.ts    entry of Preload-Scripts
-  ├─┬ src
-  │ └── main.ts       entry of Electron-Renderer
-  ├── index.html
-  ├── package.json
-  └── vite.config.ts
+```
+npm run build
 ```
 
-<!--
-## Be aware
+## 业务代码开发
 
-🚨 By default, this template integrates Node.js in the Renderer process. If you don't need it, you just remove the option below. [Because it will modify the default config of Vite](https://github.com/electron-vite/vite-plugin-electron-renderer#config-presets-opinionated).
+### 后端业务逻辑
 
-```diff
-# vite.config.ts
+1. 在`electron\main`中创建业务模块
+1. 在`electron\main\index.ts`末尾定义IPC接口
+1. 在`electron\preload\index.ts`文件的 `// You can expose other APTs you need here.`后定义IPC接口，暴露给前端调用
 
-export default {
-  plugins: [
--   // Use Node.js API in the Renderer-process
--   renderer({
--     nodeIntegration: true,
--   }),
-  ],
-}
-```
--->
+### 前端页面渲染
 
-## FAQ
+1. 在`src\components`模块下创建业务模块
+1. 在`src\vite-env.d.ts`文件中添加后端暴露的接口，避免`visual studio code`IDE提示错误
 
-- [C/C++ addons, Node.js modules - Pre-Bundling](https://github.com/electron-vite/vite-plugin-electron-renderer#dependency-pre-bundling)
-- [dependencies vs devDependencies](https://github.com/electron-vite/vite-plugin-electron-renderer#dependencies-vs-devdependencies)
+### 前后端共用
+
+1. 前后端共用的类库，放在`share`目录下
+
+## 声明
+
+本项目基于[electron-vite-vue](https://github.com/electron-vite/electron-vite-vue.git)开发

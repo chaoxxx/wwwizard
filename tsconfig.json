@@ -14,7 +14,7 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
-      "@share/*": ["share/*"] // 保持与主配置一致的路径别名
+      "@share/*": ["share/*"]     // 保持与主配置一致的路径别名
     }    
   },
   "include": ["src", "share/**/*"],

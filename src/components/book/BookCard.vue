@@ -1,5 +1,5 @@
 <template>
-  <div class="book-card" @click="onClick">
+  <div class="book-card" @click="() => onClick(book)">
     <div class="book-cover" :style="{ backgroundImage: coverUrl }">
       <div v-if="!coverUrl" class="default-cover">
         {{ title.substring(0, 2) }}
@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { Book } from '@share/models/Book';
+import type { Book } from '@share/models/Book';
 import { format } from 'date-fns'; // 可以安装date-fns处理日期
 
 const props = defineProps<{

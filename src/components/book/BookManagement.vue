@@ -20,11 +20,13 @@
 </template>
 
 <script setup lang="ts">
+
+import type { Book } from '@share/models/Book';
 import { ref, onMounted } from 'vue';
 import BookCard from './BookCard.vue';
 import AddBookButton from './AddBookButton.vue';
 import AddBookDialog from './AddBookDialog.vue';
-import { Book } from '@share/models/Book';
+
 
 const books = ref<Book[]>([]);
 const showAddBookDialog = ref(false);

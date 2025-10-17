@@ -1,37 +1,55 @@
 <template>
-  <div class="dialog-overlay">
-    <div class="dialog-container">
-      <div class="dialog-header">
-        <h2>新增书籍</h2>
-        <button class="close-button" @click="handleClose">×</button>
+  <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div class="w-full max-w-md bg-white rounded-lg shadow-lg">
+      <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+        <h2 class="text-xl font-semibold">新增书籍</h2>
+        <button 
+          class="text-gray-500 hover:text-gray-800 text-2xl transition-colors" 
+          @click="handleClose"
+        >
+          ×
+        </button>
       </div>
       
-      <div class="dialog-body">
+      <div class="p-6">
         <form @submit.prevent="handleSubmit">
-          <div class="form-group">
-            <label for="title">书籍标题 *</label>
+          <div class="mb-5">
+            <label for="title" class="block mb-2 font-medium">书籍标题 *</label>
             <input 
               type="text" 
               id="title" 
               v-model="formData.title" 
               required
               placeholder="请输入书籍标题"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
           </div>
           
-          <div class="form-group">
-            <label for="description">书籍简介</label>
+          <div class="mb-5">
+            <label for="description" class="block mb-2 font-medium">书籍简介</label>
             <textarea 
               id="description" 
               v-model="formData.description" 
               rows="4"
               placeholder="请输入书籍简介"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"
             ></textarea>
           </div>
           
-          <div class="form-actions">
-            <button type="button" class="cancel-button" @click="handleClose">取消</button>
-            <button type="submit" class="submit-button">创建</button>
+          <div class="flex justify-end gap-3 mt-8">
+            <button 
+              type="button" 
+              class="px-4 py-2 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 transition-colors"
+              @click="handleClose"
+            >
+              取消
+            </button>
+            <button 
+              type="submit" 
+              class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            >
+              创建
+            </button>
           </div>
         </form>
       </div>
@@ -68,110 +86,3 @@ const handleSubmit = () => {
   });
 };
 </script>
-
-<style scoped>
-.dialog-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.dialog-container {
-  width: 500px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-}
-
-.dialog-header {
-  padding: 16px 24px;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.dialog-header h2 {
-  margin: 0;
-  font-size: 20px;
-}
-
-.close-button {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #888;
-  padding: 0;
-  line-height: 1;
-}
-
-.close-button:hover {
-  color: #333;
-}
-
-.dialog-body {
-  padding: 24px;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.form-group textarea {
-  resize: vertical;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 32px;
-}
-
-.cancel-button,
-.submit-button {
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.cancel-button {
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  color: #333;
-}
-
-.submit-button {
-  background-color: #646cff;
-  border: 1px solid #646cff;
-  color: white;
-}
-
-.submit-button:hover {
-  background-color: #535bf2;
-}
-</style>

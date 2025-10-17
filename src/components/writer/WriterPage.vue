@@ -82,17 +82,17 @@
             
             <!-- 编辑器工具栏 -->
             <div class="editor-toolbar">
-              <button @click="editor.chain().focus().toggleHeading({ level: 1 }).run()">H1</button>
-              <button @click="editor.chain().focus().toggleHeading({ level: 2 }).run()">H2</button>
-              <button @click="editor.chain().focus().toggleHeading({ level: 3 }).run()">H3</button>
+              <button @click="editor?.chain().focus().toggleHeading({ level: 1 }).run()">H1</button>
+              <button @click="editor?.chain().focus().toggleHeading({ level: 2 }).run()">H2</button>
+              <button @click="editor?.chain().focus().toggleHeading({ level: 3 }).run()">H3</button>
               <separator />
-              <button @click="editor.chain().focus().toggleBold().run()">粗体</button>
-              <button @click="editor.chain().focus().toggleItalic().run()">斜体</button>
-              <button @click="editor.chain().focus().toggleStrike().run()">删除线</button>
+              <button @click="editor?.chain().focus().toggleBold().run()">粗体</button>
+              <button @click="editor?.chain().focus().toggleItalic().run()">斜体</button>
+              <button @click="editor?.chain().focus().toggleStrike().run()">删除线</button>
               <separator />
-              <button @click="editor.chain().focus().toggleBulletList().run()">无序列表</button>
-              <button @click="editor.chain().focus().toggleOrderedList().run()">有序列表</button>
-              <button @click="editor.chain().focus().toggleBlockquote().run()">引用</button>
+              <button @click="editor?.chain().focus().toggleBulletList().run()">无序列表</button>
+              <button @click="editor?.chain().focus().toggleOrderedList().run()">有序列表</button>
+              <button @click="editor?.chain().focus().toggleBlockquote().run()">引用</button>
               <separator />
               <button @click="saveContent">保存</button>
             </div>
@@ -145,7 +145,7 @@ const showAddVolumeDialog = ref(false);
 const showAddChapterDialog = ref(false);
 
 // 初始化编辑器
-const editor = ref<Editor | null>(null);
+const editor = ref<Editor>();
 
 // 格式化字数
 const formatWordCount = (count: number) => {

@@ -1,7 +1,7 @@
 <template>
-  <div class="book-management">
-    <h1>我的书籍</h1>
-    <div class="books-container">
+  <div class="p-6">
+    <h1 class="m-0 mb-6 text-center text-gray-800 text-2xl font-semibold">测试网页</h1>
+    <div class="flex flex-wrap justify-center mt-6 gap-4">
       <BookCard 
         v-for="book in books" 
         :key="book.id" 
@@ -66,20 +66,3 @@ onMounted(() => {
   loadBooks();
 });
 </script>
-
-<style scoped>
-.book-management {
-  padding: 24px;
-}
-
-.books-container {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 24px;
-}
-
-h1 {
-  margin: 0 0 24px 16px;
-  color: #333;
-}
-</style>

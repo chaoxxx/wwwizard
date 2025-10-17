@@ -1,7 +1,10 @@
 <template>
-  <div class="add-book-button" @click="onClick">
-    <div class="plus-icon">+</div>
-    <p>新增书籍</p>
+  <div 
+    class="w-[160px] h-[220px] m-4 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer transition-all duration-200 hover:border-[#646cff] hover:bg-[rgba(100,108,255,0.05)]"
+    @click="onClick"
+  >
+    <div class="text-6xl text-gray-300 mb-4 transition-all duration-200 group-hover:text-[#646cff]">+</div>
+    <p class="text-gray-600 m-0 transition-colors duration-200 group-hover:text-[#646cff]">新增书籍</p>
   </div>
 </template>
 
@@ -14,44 +17,3 @@ const onClick = () => {
   emit('click');
 };
 </script>
-
-<style scoped>
-.add-book-button {
-  width: 160px;
-  height: 220px;
-  margin: 16px;
-  border: 2px dashed #ccc;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.add-book-button:hover {
-  border-color: #646cff;
-  background-color: rgba(100, 108, 255, 0.05);
-}
-
-.plus-icon {
-  font-size: 48px;
-  color: #ccc;
-  margin-bottom: 16px;
-  transition: all 0.2s;
-}
-
-.add-book-button:hover .plus-icon {
-  color: #646cff;
-}
-
-.add-book-button p {
-  color: #888;
-  margin: 0;
-}
-
-.add-book-button:hover p {
-  color: #646cff;
-}
-</style>

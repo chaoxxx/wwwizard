@@ -9,23 +9,23 @@
         :class="`w-full h-full flex items-center justify-center text-white text-3xl font-bold rounded-lg`"
         :style="{ backgroundColor: coverColor }"
       >
-        {{ title.substring(0, 2) }}
+        {{ bookTitle.substring(0, 2) }}
       </div>
     </div>
     <div class="pt-2 pb-0">
       <h3 class="text-base m-0 mb-1 text-center whitespace-nowrap overflow-hidden text-ellipsis">
-        {{ title }}
+        {{ bookTitle }}
       </h3>
       <p class="text-xs text-center text-gray-600 m-0">
-        {{ formatWordCount(wordCount) }} | 
-        {{ formatTime(lastEditTime) }}
+        {{ formatWordCount(bookWordsCount) }} | 
+        {{ formatTime(updateTime) }}
       </p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Book } from '@share/models/Book';
+import type { Book } from '@share/dbModels/Book';
 import { format } from 'date-fns'; // 可以安装date-fns处理日期
 
 const props = defineProps<{
@@ -34,7 +34,7 @@ const props = defineProps<{
 }>();
 
 const { book } = props;
-const { title, cover, wordCount, lastEditTime,id } = book;
+const { bookTitle, cover, bookWordsCount, updateTime,id } = book;
 
 const coverUrl = cover ? `url(${cover})` : '';
 

@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'; // 添加导入
-import type { Book } from '@share/models/Book';
+import type { Book } from '@share/dbModels/Book';
 import { ref, onMounted } from 'vue';
 import BookCard from './BookCard.vue';
 import AddBookButton from './AddBookButton.vue';

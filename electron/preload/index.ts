@@ -1,5 +1,7 @@
 import { ipcRenderer, contextBridge } from 'electron'
 import { Book } from '@share/models/Book'
+import { Chapter, Volume } from '@share/models/Chapter';
+
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld('ipcRenderer', {
   on(...args: Parameters<typeof ipcRenderer.on>) {
@@ -20,10 +22,20 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
   },
 
   // You can expose other APTs you need here.
-  saveUserInfo: (data: { name: string; age: number; id_card: string }) => ipcRenderer.invoke('save-user-info', data),
-    // 书籍管理相关方法
+  // 书籍管理相关方法
   getAllBooks: () => ipcRenderer.invoke('get-all-books'),
-  addBook: (bookData:Book) => ipcRenderer.invoke('add-book', bookData)
+  addBook: (bookData:Book) => ipcRenderer.invoke('add-book', bookData),
+
+  // 在已有的contextBridge.exposeInMainWorld('ipcRenderer', { ... })中添加：
+  getVolumesByBookId: (bookId: string) => ipcRenderer.invoke('get-volumes-by-book-id', bookId),
+  getChaptersByVolumeId: (volumeId?: string) => ipcRenderer.invoke('get-chapters-by-volume-id', volumeId),
+  createVolume: (volumeData: Omit<Volume, 'id' | 'order'>) => ipcRenderer.invoke('create-volume', volumeData),
+  createChapter: (chapterData: Omit<Chapter, 'id' | 'createTime' | 'lastEditTime' | 'wordCount' | 'order'>) => 
+    ipcRenderer.invoke('create-chapter', chapterData),
+  updateChapterContent: (chapterId: string, content: string) => 
+    ipcRenderer.invoke('update-chapter-content', chapterId, content)
+
+
 })
 
 // --------- Preload scripts loading ---------

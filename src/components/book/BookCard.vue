@@ -1,22 +1,31 @@
 <template>
-  <div class="book-card" @click="() => onClick(book)">
-    <div class="book-cover" :style="{ backgroundImage: coverUrl }">
-      <div v-if="!coverUrl" class="default-cover">
-        {{ title.substring(0, 2) }}
+  <div class="w-[160px] m-4 cursor-pointer transition-transform duration-200 hover:-translate-y-1" @click="() => onClick(book)">
+    <div 
+      class="w-[160px] h-[220px] rounded-lg bg-cover bg-center relative shadow-[0_2px_8px_rgba(0,0,0,0.15)]"
+      :style="{ backgroundImage: coverUrl }"
+    >
+      <div 
+        v-if="!coverUrl" 
+        :class="`w-full h-full flex items-center justify-center text-white text-3xl font-bold rounded-lg`"
+        :style="{ backgroundColor: coverColor }"
+      >
+        {{ bookTitle.substring(0, 2) }}
       </div>
     </div>
-    <div class="book-info">
-      <h3 class="book-title">{{ title }}</h3>
-      <p class="book-meta">
-        {{ formatWordCount(wordCount) }} | 
-        {{ formatTime(lastEditTime) }}
+    <div class="pt-2 pb-0">
+      <h3 class="text-base m-0 mb-1 text-center whitespace-nowrap overflow-hidden text-ellipsis">
+        {{ bookTitle }}
+      </h3>
+      <p class="text-xs text-center text-gray-600 m-0">
+        {{ formatWordCount(bookWordsCount) }} | 
+        {{ formatTime(updateTime) }}
       </p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Book } from '@share/models/Book';
+import type { Book } from '@share/dbModels/Book';
 import { format } from 'date-fns'; // 可以安装date-fns处理日期
 
 const props = defineProps<{
@@ -25,9 +34,37 @@ const props = defineProps<{
 }>();
 
 const { book } = props;
-const { title, cover, wordCount, lastEditTime } = book;
+const { bookTitle, cover, bookWordsCount, updateTime,id } = book;
 
 const coverUrl = cover ? `url(${cover})` : '';
+
+// 生成一组美观协调的背景色
+const coverColors = [
+  '#646cff',    // 主色调：靛蓝色
+  '#36d399',    // 绿色
+  '#f59e0b',    // 琥珀色
+  '#ec4899',    // 粉色
+  '#8b5cf6',    // 紫色
+  '#06b6d4',    // 青色
+  '#ef4444',    // 红色
+  '#6366f1',    // 靛蓝色变体
+  '#10b981',    // 绿色变体
+  '#f97316',    // 橙色
+];
+
+// 基于书籍ID生成固定的颜色索引，确保同一本书始终显示相同颜色
+const getColorIndex = (id: string | number) => {
+  // 简单的哈希函数将ID转换为索引
+  let hash = 0;
+  const str = String(id);
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return Math.abs(hash) % coverColors.length;
+};
+
+// 获取当前书籍的背景色
+const coverColor = coverColors[getColorIndex(id)];
 
 const formatWordCount = (count: number) => {
   if (count >= 10000) {
@@ -40,57 +77,3 @@ const formatTime = (time: number) => {
   return format(new Date(time), 'yyyy-MM-dd');
 };
 </script>
-
-<style scoped>
-.book-card {
-  width: 160px;
-  margin: 16px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.book-card:hover {
-  transform: translateY(-4px);
-}
-
-.book-cover {
-  width: 160px;
-  height: 220px;
-  border-radius: 8px;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.default-cover {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #646cff;
-  color: white;
-  font-size: 32px;
-  font-weight: bold;
-  border-radius: 8px;
-}
-
-.book-info {
-  padding: 8px 0;
-}
-
-.book-title {
-  font-size: 16px;
-  margin: 0 0 4px 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.book-meta {
-  font-size: 12px;
-  color: #888;
-  margin: 0;
-}
-</style>

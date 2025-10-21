@@ -36,6 +36,7 @@ npm run build
 
 1. 在`src\components`模块下创建业务模块
 1. 在`src\vite-env.d.ts`文件中添加后端暴露的接口，避免`visual studio code`IDE提示错误
+1. 在`src\router\index.ts`文件中添加路由跳转
 
 ### 前后端共用
 

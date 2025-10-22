@@ -2,6 +2,7 @@ import { app } from 'electron';
 import { DBInitializer } from './dbInitializer';
 import Database, { type Database as SqliteDatabase } from 'better-sqlite3'; // 显式导入类型
 import path from 'node:path';
+import elogger from '../util/ElogUtil';
 
 const dataDir = app.getPath('userData');
 const dbPath = path.join(dataDir, 'wwwizard.db');
@@ -21,7 +22,7 @@ try {
 
 // 显式指定类型
 export const db: SqliteDatabase = new Database(dbPath, {
-  verbose: (message) => console.log(`SQL: ${message}`)
+  verbose: (message) => elogger.getInstance().info(`SQL: ${message}`)
 });
 
 // 导出类型供其他模块使用（可选）

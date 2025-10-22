@@ -5,7 +5,7 @@ import url from 'node:url';
 import { BookMapper } from '../mapper/buss/BookMapper';
 import type { Book }  from '@share/dbModels/Book';
 import { idGenerator }  from '../util/SimpleIncrementIdGenerator';
-
+import elogger from '../util/ElogUtil';
 // 定义数据存储路径
 // const __filename = url.fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
@@ -20,15 +20,16 @@ export async function getAllBooks(): Promise<Book[]> {
 
 // 添加新书籍
 export async function addBook(book: Omit<Book, 'id' | 'create_time' | 'update_time' | 'book_words_count'>): Promise<Book> {  
-  const newBook: Book = {    
+  const newBook: Book = {
     ...book,
     // id: idGenerator.generateId(),
-    book_type: '10',    
+    book_type: '10',
     create_time: Date.now(),
     update_time: Date.now(),
-    book_words_count: 0
+    book_words_count: 0,
+    id: ''
   };
-  
+  elogger.getInstance().info(`Adding new book: ${JSON.stringify(newBook)}`);
   return bookMapper.create(newBook);
 }
 

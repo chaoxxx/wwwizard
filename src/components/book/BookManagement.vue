@@ -26,8 +26,6 @@ import { ref, onMounted } from 'vue';
 import BookCard from './BookCard.vue';
 import AddBookButton from './AddBookButton.vue';
 import AddBookDialog from './AddBookDialog.vue';
-
-
 const books = ref<Book[]>([]);
 const showAddBookDialog = ref(false);
 
@@ -51,11 +49,11 @@ const loadBooks = async () => {
 };
 
 // 处理新增书籍
-const handleAddBook = async (bookData: { title: string; description: string }) => {
+const handleAddBook = async (bookData: { book_title: string; book_desc: string }) => {
   try {
     const newBook = await window.ipcRenderer.addBook(bookData);    
     books.value.push(newBook);
-    showAddBookDialog.value = false;
+    showAddBookDialog.value = false;    
   } catch (error) {
     console.error('添加书籍失败:', error);
   }

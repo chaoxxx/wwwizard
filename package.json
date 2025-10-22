@@ -46,6 +46,7 @@
     "@tiptap/vue-3": "^3.7.1",
     "better-sqlite3": "^12.4.1",
     "date-fns": "^4.1.0",
+    "electron-log": "^5.4.3",
     "tailwindcss": "^4.1.14",
     "vue-router": "^4.6.3"
   }

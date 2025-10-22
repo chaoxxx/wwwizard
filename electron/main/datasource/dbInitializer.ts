@@ -33,7 +33,7 @@ interface MigrationRecord {
 const DEFAULT_CONFIG: DBConfig = {
   path: path.resolve(__dirname, 'wwwizard.db'),
   migrationsDir: path.resolve(__dirname, 'migrations'),
-  systemTablesSqlPath: path.resolve(__dirname, 'wwwizard.sql'), // 默认系统表SQL文件路径
+  systemTablesSqlPath: path.resolve(__dirname, '../../wwwizard.sql'), // 默认系统表SQL文件路径
   initialData: {
     roles: [
       { id: 1, name: 'admin', description: '系统管理员' },

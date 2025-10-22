@@ -8,7 +8,7 @@ import { bookService } from './service/bookService';
 // import { Volume, Chapter } from '@share/models/Chapter';
 
 // const require = createRequire(import.meta.url)
-// const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // The built directory structure
 //

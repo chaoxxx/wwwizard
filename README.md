@@ -42,6 +42,21 @@ npm run build
 
 1. 前后端共用的类库，放在`share`目录下
 
+## 开发过程中可能遇到的问题
+
+### Electron 解决与nodejs版本不一致的问题
+
+错误提示如下
+```
+NODE_MODULE_VERSION 127. This version of Node.js requires
+NODE_MODULE_VERSION 139. Please try re-compiling or re-installing
+```
+
+执行以下命令，重新编译
+```
+.\node_modules\.bin\electron-rebuild
+```
+
 ## 声明
 
 本项目基于[electron-vite-vue](https://github.com/electron-vite/electron-vite-vue.git)开发

@@ -19,14 +19,14 @@ export async function getAllBooks(): Promise<Book[]> {
 }
 
 // 添加新书籍
-export async function addBook(book: Omit<Book, 'id' | 'createTime' | 'updateTime' | 'bookWordsCount'>): Promise<Book> {  
+export async function addBook(book: Omit<Book, 'id' | 'create_time' | 'update_time' | 'book_words_count'>): Promise<Book> {  
   const newBook: Book = {    
     ...book,
-    id: idGenerator.generateId(),
-    bookType: '10',    
-    createTime: Date.now(),
-    updateTime: Date.now(),
-    bookWordsCount: 0
+    // id: idGenerator.generateId(),
+    book_type: '10',    
+    create_time: Date.now(),
+    update_time: Date.now(),
+    book_words_count: 0
   };
   
   return bookMapper.create(newBook);

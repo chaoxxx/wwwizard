@@ -9,16 +9,16 @@
         :class="`w-full h-full flex items-center justify-center text-white text-3xl font-bold rounded-lg`"
         :style="{ backgroundColor: coverColor }"
       >
-        {{ bookTitle.substring(0, 2) }}
+        {{ book_title.substring(0, 2) }}
       </div>
     </div>
     <div class="pt-2 pb-0">
       <h3 class="text-base m-0 mb-1 text-center whitespace-nowrap overflow-hidden text-ellipsis">
-        {{ bookTitle }}
+        {{ book_title }}
       </h3>
       <p class="text-xs text-center text-gray-600 m-0">
-        {{ formatWordCount(bookWordsCount) }} | 
-        {{ formatTime(updateTime) }}
+        {{ formatWordCount(book_words_count) }} | 
+        {{ formatTime(update_time) }}
       </p>
     </div>
   </div>
@@ -34,7 +34,7 @@ const props = defineProps<{
 }>();
 
 const { book } = props;
-const { bookTitle, cover, bookWordsCount, updateTime,id } = book;
+const { book_title, cover, book_words_count, update_time,id } = book;
 
 const coverUrl = cover ? `url(${cover})` : '';
 

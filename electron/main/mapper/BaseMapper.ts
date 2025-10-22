@@ -1,6 +1,6 @@
 import { db } from '../datasource/dbConnection';
 import { IBaseMapper } from './IBaseMapper';
-
+import { idGenerator }  from '../util/SimpleIncrementIdGenerator';
 // 约束泛型 T 必须包含 id 字段（通用主键约束）
 type WithId = { id: string };
 
@@ -29,8 +29,8 @@ abstract class BaseMapper<T extends WithId> implements IBaseMapper<T> {
     create(item: Partial<T>): T {
         // 复制一份数据，避免修改原对象
         const data = { ...item };
-        // 强制删除 id（防止手动传入 id 导致冲突）
-        delete data.id;
+        // 如果外部未提供 id，则自动生成
+        data.id = data.id || idGenerator.generateId();
 
         // 获取所有字段键（此时已排除 id）
         const keys = Object.keys(data) as (keyof T)[];

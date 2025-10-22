@@ -18,7 +18,7 @@
             <input 
               type="text" 
               id="title" 
-              v-model="formData.title" 
+              v-model="formData.book_title" 
               required
               placeholder="请输入书籍标题"
               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -29,7 +29,7 @@
             <label for="description" class="block mb-2 font-medium">书籍简介</label>
             <textarea 
               id="description" 
-              v-model="formData.description" 
+              v-model="formData.book_desc" 
               rows="4"
               placeholder="请输入书籍简介"
               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"
@@ -62,12 +62,12 @@ import { ref } from 'vue';
 
 const emit = defineEmits<{
   (e: 'close'): void;
-  (e: 'save', data: { title: string; description: string }): void;
+  (e: 'save', data: { book_title: string; book_desc: string }): void;
 }>();
 
 const formData = ref({
-  title: '',
-  description: ''
+  book_title: '',
+  book_desc: ''
 });
 
 const handleClose = () => {
@@ -75,14 +75,14 @@ const handleClose = () => {
 };
 
 const handleSubmit = () => {
-  if (!formData.value.title.trim()) {
+  if (!formData.value.book_title.trim()) {
     alert('请输入书籍标题');
     return;
   }
   
   emit('save', {
-    title: formData.value.title.trim(),
-    description: formData.value.description.trim()
+    book_title: formData.value.book_title.trim(),
+    book_desc: formData.value.book_desc.trim()
   });
 };
 </script>

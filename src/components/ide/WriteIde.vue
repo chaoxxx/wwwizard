@@ -14,9 +14,37 @@
       <!-- 左侧资源管理窗口 -->
       <aside class="resource-explorer w-64 border-r border-gray-200 bg-white overflow-y-auto">
         <div class="p-3">
+          <!-- 设定管理（可折叠） -->
           <div class="resource-section mb-5">
-            <h2 class="section-title text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-3">设定管理</h2>
-            <ul class="resource-list space-y-1">
+            <!-- 分类标题（可点击折叠） -->
+            <div 
+              @click="toggleSection('setting')"
+              class="section-header flex items-center justify-between px-3 py-1 mb-2 cursor-pointer"
+            >
+              <h2 class="section-title text-xs font-semibold text-gray-500 uppercase tracking-wider">设定管理</h2>
+              <!-- 折叠/展开箭头 -->
+              <svg 
+                :class="collapsedSections.setting ? 'rotate-0' : 'rotate-90'"
+                xmlns="http://www.w3.org/2000/svg" 
+                width="14" 
+                height="14" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                stroke-width="2" 
+                stroke-linecap="round" 
+                stroke-linejoin="round"
+                class="text-gray-400 transition-transform duration-150"
+              >
+                <polyline points="9 6 15 12 9 18"></polyline>
+              </svg>
+            </div>
+            <!-- 分类列表（根据折叠状态显示/隐藏） -->
+            <ul 
+              class="resource-list space-y-1"
+              :class="collapsedSections.setting ? 'h-0 overflow-hidden' : 'h-auto overflow-visible'"
+              style="transition: height 0.15s ease-in-out"
+            >
               <li 
                 @click="selectResource('characters')" 
                 :class="activeResource === 'characters' ? 'bg-gray-100 text-gray-900' : 'text-gray-700 hover:bg-gray-50'"
@@ -43,9 +71,34 @@
             </ul>
           </div>
           
+          <!-- 大纲管理（可折叠） -->
           <div class="resource-section mb-5">
-            <h2 class="section-title text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-3">大纲管理</h2>
-            <ul class="resource-list space-y-1">
+            <div 
+              @click="toggleSection('outline')"
+              class="section-header flex items-center justify-between px-3 py-1 mb-2 cursor-pointer"
+            >
+              <h2 class="section-title text-xs font-semibold text-gray-500 uppercase tracking-wider">大纲管理</h2>
+              <svg 
+                :class="collapsedSections.outline ? 'rotate-0' : 'rotate-90'"
+                xmlns="http://www.w3.org/2000/svg" 
+                width="14" 
+                height="14" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                stroke-width="2" 
+                stroke-linecap="round" 
+                stroke-linejoin="round"
+                class="text-gray-400 transition-transform duration-150"
+              >
+                <polyline points="9 6 15 12 9 18"></polyline>
+              </svg>
+            </div>
+            <ul 
+              class="resource-list space-y-1"
+              :class="collapsedSections.outline ? 'h-0 overflow-hidden' : 'h-auto overflow-visible'"
+              style="transition: height 0.15s ease-in-out"
+            >
               <li 
                 @click="selectResource('outline')" 
                 :class="activeResource === 'outline' ? 'bg-gray-100 text-gray-900' : 'text-gray-700 hover:bg-gray-50'"
@@ -64,9 +117,34 @@
             </ul>
           </div>
           
+          <!-- 正文管理（可折叠） -->
           <div class="resource-section">
-            <h2 class="section-title text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-3">正文管理</h2>
-            <ul class="resource-list space-y-1">
+            <div 
+              @click="toggleSection('content')"
+              class="section-header flex items-center justify-between px-3 py-1 mb-2 cursor-pointer"
+            >
+              <h2 class="section-title text-xs font-semibold text-gray-500 uppercase tracking-wider">正文管理</h2>
+              <svg 
+                :class="collapsedSections.content ? 'rotate-0' : 'rotate-90'"
+                xmlns="http://www.w3.org/2000/svg" 
+                width="14" 
+                height="14" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                stroke-width="2" 
+                stroke-linecap="round" 
+                stroke-linejoin="round"
+                class="text-gray-400 transition-transform duration-150"
+              >
+                <polyline points="9 6 15 12 9 18"></polyline>
+              </svg>
+            </div>
+            <ul 
+              class="resource-list space-y-1"
+              :class="collapsedSections.content ? 'h-0 overflow-hidden' : 'h-auto overflow-visible'"
+              style="transition: height 0.15s ease-in-out"
+            >
               <li 
                 @click="selectResource('volumes')" 
                 :class="activeResource === 'volumes' ? 'bg-gray-100 text-gray-900' : 'text-gray-700 hover:bg-gray-50'"
@@ -85,7 +163,7 @@
       
       <!-- 右侧详情窗口 -->
       <main class="detail-panel flex-1 overflow-auto bg-gray-50 p-6">
-        <div class="max-w-4xl mx-auto bg-white rounded-lg border border-gray-200 shadow-sm min-h-[calc(100%-2rem)] p-6">
+        <div class="max-w-6xl mx-auto bg-white rounded-lg border border-gray-200 shadow-sm min-h-[calc(100%-1.5rem)] p-5">
           <component 
             :is="currentComponent" 
             :book-id="bookId"
@@ -117,6 +195,12 @@ console.log('当前编辑的书籍ID:', bookId);
 // 状态管理
 const book = ref<Book | null>(null);
 const activeResource = ref('volumes'); // 默认显示章节管理
+// 折叠状态管理：key对应分类，value为是否折叠（true=折叠，false=展开）
+const collapsedSections = ref({
+  setting: false,   // 设定管理
+  outline: false,   // 大纲管理
+  content: false    // 正文管理
+});
 
 // 加载书籍信息
 const loadBookInfo = async () => {
@@ -131,6 +215,11 @@ const loadBookInfo = async () => {
 // 选择资源
 const selectResource = (resource: string) => {
   activeResource.value = resource;
+};
+
+// 切换分类折叠/展开状态
+const toggleSection = (section: 'setting' | 'outline' | 'content') => {
+  collapsedSections.value[section] = !collapsedSections.value[section];
 };
 
 // 获取当前要显示的组件

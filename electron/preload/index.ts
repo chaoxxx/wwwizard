@@ -1,6 +1,8 @@
 import { ipcRenderer, contextBridge } from 'electron'
 import { Book } from '@share/models/Book'
+import { Character } from '@share/dbModels/Character';
 import { Chapter, Volume } from '@share/models/Chapter';
+import { getAllCharactersByBookId } from 'electron/main/service/characterService';
 
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld('ipcRenderer', {
@@ -26,6 +28,10 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
   getAllBooks: () => ipcRenderer.invoke('get-all-books'),
   addBook: (bookData:Book) => ipcRenderer.invoke('add-book', bookData),
 
+  // 人物角色相关API
+  getAllCharactersByBookId: (book_id:string) => ipcRenderer.invoke('get-all-characters',book_id),
+  addCharacter: (characterData:Character) => ipcRenderer.invoke('add-character', characterData),
+  
   // 在已有的contextBridge.exposeInMainWorld('ipcRenderer', { ... })中添加：
   getVolumesByBookId: (bookId: string) => ipcRenderer.invoke('get-volumes-by-book-id', bookId),
   getChaptersByVolumeId: (volumeId?: string) => ipcRenderer.invoke('get-chapters-by-volume-id', volumeId),

@@ -41,6 +41,32 @@ create table if not exists www_chapter
    chapter_content      text ,
    chapter_words_count  bigint not null ,
    create_time          datetime not null ,
-   update_time          datetime not null
+   update_time          datetime not null,
+   primary key (id)
 );
 
+/*==============================================================*/
+/* Table: www_character                                         */
+/*==============================================================*/
+create table if not exists www_character
+(
+   id                   varchar(20) not null,
+   book_id              varchar(20) not null,
+   character_first_name varchar(10) ,
+   character_mid_name   varchar(10) ,
+   character_last_name  varchar(10) ,
+   character_full_name  varchar(50) ,
+   character_nickname   varchar(50) ,
+   character_gender     varchar(2) ,
+   character_age        int ,
+   character_birthday   varchar(20)  ,
+   species              varchar(10)  ,
+   occupation           varchar(10)  ,
+   main_character_flag  varchar(2)  ,
+   character_status     varchar(2)  ,
+   character_remark     text  ,
+   character_personality text  ,
+   create_time          datetime not null,
+   update_time          datetime not null,
+   primary key (id)
+);

@@ -8,6 +8,7 @@ declare module '*.vue' {
 
 import type { Book } from '@shared/models/Book';
 import type { Chapter, Volume } from '@share/models/Chapter';
+import type { Character } from '@share/dbModels/Character';
 
 declare global {
   interface Window {
@@ -15,6 +16,9 @@ declare global {
     ipcRenderer: import('electron').IpcRenderer & {    
       getAllBooks: () => Promise<Book[]>;
       addBook: (bookData:Book) => Promise<Book>;
+      // 人物角色相关API
+      getAllCharactersByBookId: (book_id:string) => Promise<Character[]>;
+      addCharacter: (characterData:Omit<Character, 'id' | 'create_time' | 'update_time'>) => Promise<Character>;      
       // 在interface Window的ipcRenderer中添加：
       getVolumesByBookId: (bookId: string) => Promise<Volume[]>;
       getChaptersByVolumeId: (volumeId?: string) => Promise<Chapter[]>;

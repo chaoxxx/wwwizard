@@ -4,8 +4,7 @@ import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import os from 'node:os'
 import { bookService } from './service/bookService';
-// import { chapterService } from './chapterService.ts.bak';
-// import { Volume, Chapter } from '@share/models/Chapter';
+import { characterService } from './service/characterService'
 import elogger from './util/ElogUtil'
 
 // const require = createRequire(import.meta.url)
@@ -131,6 +130,14 @@ ipcMain.handle('add-book', async (_, bookData) => {
   return await bookService.addBook(bookData);
 });
 
+// 人物角色管理
+ipcMain.handle('get-all-characters', async (_, book_id) => {
+  return await characterService.getAllCharactersByBookId(book_id);
+});
+ipcMain.handle('add-character', async (_, characterData) => {
+  return await characterService.addCharacter(characterData);
+});
+
 // 章节管理相关IPC
 // ipcMain.handle('get-volumes-by-book-id', async (_, bookId: string) => {
 //   return await chapterService.getVolumesByBookId(bookId);
@@ -151,3 +158,4 @@ ipcMain.handle('add-book', async (_, bookData) => {
 // ipcMain.handle('update-chapter-content', async (_, chapterId: string, content: string) => {
 //   return await chapterService.updateChapterContent(chapterId, content);
 // });
+

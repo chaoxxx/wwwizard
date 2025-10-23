@@ -22,6 +22,20 @@ abstract class BaseMapper<T extends WithId> implements IBaseMapper<T> {
     }
 
     /**
+     * 分页查询所有记录
+     * @param limit 每页条数
+     * @param offset 起始偏移量
+     * @returns T[] 最大limit数量，记录数组对象
+     */
+    findAllWithPagination(limit: number, offset: number): T[] {
+        return db.prepare(`SELECT * FROM ${this.tableName} ORDER BY id ASC LIMIT ? OFFSET ?`).all(limit, offset) as T[];
+    }
+
+    protected executeQuerySql(sql: string, params: any[] = []): any {
+        return db.prepare(sql).all(...params);
+    }
+
+    /**
      * 创建新记录
      * @param item 要创建的对象（不含 id 时会自动生成）
      * @returns 创建后的完整对象（包含 id）

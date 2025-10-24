@@ -9,6 +9,7 @@ declare module '*.vue' {
 import type { Book } from '@shared/models/Book';
 import type { Chapter, Volume } from '@share/models/Chapter';
 import type { Character } from '@share/dbModels/Character';
+import type { IStaticMethods } from "preline/dist";
 
 declare global {
   interface Window {
@@ -26,6 +27,8 @@ declare global {
       createChapter: (chapterData: Omit<Chapter, 'id' | 'createTime' | 'lastEditTime' | 'wordCount' | 'order'>) => Promise<Chapter>;
       updateChapterContent: (chapterId: string, content: string) => Promise<Chapter | null>;
     }
+    // Preline UI
+    HSStaticMethods: IStaticMethods;
   }
 }
 

@@ -71,6 +71,10 @@ NODE_MODULE_VERSION 139. Please try re-compiling or re-installing
 
 作为日志记录框架
 
+### perlin 前端库
+
+详情见[preline](https://www.preline.co/docs/)
+
 ## 开发路线
 
 |版本|功能|

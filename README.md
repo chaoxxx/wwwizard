@@ -57,6 +57,27 @@ NODE_MODULE_VERSION 139. Please try re-compiling or re-installing
 .\node_modules\.bin\electron-rebuild
 ```
 
+## 引入的第三方库
+
+### vue-codemirror 
+
+`vue`封装的`codemirror`编辑器，详情见[vue-codemirror](https://www.npmjs.com/package/vue-codemirror)
+
+### better-sqlite
+
+作为数据存储
+
+### electron-log
+
+作为日志记录框架
+
+## 开发路线
+
+|版本|功能|
+|---|---|
+|1.0.0|实现基本的文本编辑器|
+|1.1.0|实现角色管理功能|
+
 ## 声明
 
 本项目基于[electron-vite-vue](https://github.com/electron-vite/electron-vite-vue.git)开发

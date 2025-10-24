@@ -184,6 +184,8 @@ import CharactersPanel from './panels/CharactersPanel.vue';
 // import ItemsPanel from './panels/ItemsPanel.vue';
 // import OutlinePanel from './panels/OutlinePanel.vue';
 // import VolumesPanel from './panels/VolumesPanel.vue';
+import MyCodeMirror from './codemirror/MyCodeMirror.vue';
+
 
 // 路由相关
 const route = useRoute();
@@ -235,9 +237,9 @@ watch(activeResource, (val) => {
     // case 'outline':
     //   currentComponent.value = OutlinePanel;
     //   break;
-    // case 'volumes':
-    //   currentComponent.value = VolumesPanel;
-    //   break;
+    case 'volumes':
+      currentComponent.value = MyCodeMirror;
+      break;
   }
 }, { immediate: true });
 
